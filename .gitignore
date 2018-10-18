@@ -1,8 +1,0 @@
-# Git
-.git/
-
-# NPM
-node_modules/
-
-# Dist
-dist/
