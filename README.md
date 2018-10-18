@@ -1,4 +1,4 @@
-# Phaser Typescript Tutorial
+# Le jeu kon va kodé
 
 ![Phaser][header-image]
 
