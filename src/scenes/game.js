@@ -4,6 +4,8 @@ import sky from '../assets/sky.png';
 import ground from '../assets/platform.png';
 import dude from '../assets/dude.png';
 import ground2 from '../assets/ground.png';
+import aOgg from '../assets/a.ogg';
+import aMp3 from '../assets/a.mp3';
 
 import screen from '../config/constants';
 
@@ -16,12 +18,21 @@ const Direction = Object.freeze({
 
 class Game extends Phaser.Scene {
   constructor() {
-    super({ key: 'Game' });
+    super({
+      key: 'Game',
+      type: Phaser.AUTO,
+      parent: 'phaser-example',
+      width: 800,
+      height: 800,
+      pixelArt: true,
+    });
   }
 
   preload() {
+    this.addLoading();
     this.load.image('sky', sky);
     this.load.image('ground', ground);
+    this.load.audio('sonSaMereLaLol', [aOgg, aMp3]);
     this.load.image('ground2', ground2);
     this.load.spritesheet('dude', dude, { frameWidth: 32, frameHeight: 29 });
 
@@ -30,16 +41,79 @@ class Game extends Phaser.Scene {
   }
 
   addSquare() {
-    console.log('aaa');
     this.createMap();
     // this.platforms.create(0, 0);
     // this.platforms.create(400, 300, 'ground');
+  }
+
+  addLoading() {
+    let progressBar = this.add.graphics();
+    let progressBox = this.add.graphics();
+    progressBox.fillStyle(0x222222, 0.8);
+    progressBox.fillRect(240, 270, 320, 50);
+    
+    let width = this.cameras.main.width;
+    let height = this.cameras.main.height; 
+    let loadingText = this.make.text({
+        x: width / 2,
+        y: height / 2 - 50,
+        text: 'Loading...',
+        style: {
+            font: '20px monospace',
+            fill: '#ffffff'
+        }
+    });
+    loadingText.setOrigin(0.5, 0.5);
+    
+    let percentText = this.make.text({
+        x: width / 2,
+        y: height / 2 - 5,
+        text: '0%',
+        style: {
+            font: '18px monospace',
+            fill: '#ffffff'
+        }
+    });
+    percentText.setOrigin(0.5, 0.5);
+    
+    let assetText = this.make.text({
+        x: width / 2,
+        y: height / 2 + 50,
+        text: '',
+        style: {
+            font: '18px monospace',
+            fill: '#ffffff'
+        }
+    });
+
+    assetText.setOrigin(0.5, 0.5);
+    
+    this.load.on('progress', (value) => {
+        percentText.setText(parseInt(value * 100) + '%');
+        progressBar.clear();
+        progressBar.fillStyle(0xffffff, 1);
+        progressBar.fillRect(250, 280, 300 * value, 30);
+    });
+    
+    this.load.on('fileprogress', (file) => {
+        assetText.setText('Loading asset: ' + file.key);
+    });
+
+    this.load.on('complete', () => {
+        progressBar.destroy();
+        progressBox.destroy();
+        loadingText.destroy();
+        percentText.destroy();
+        assetText.destroy();
+    });
   }
 
   create() {
     // add Sky background sprit
     // this.map = this.add.tilemap('level');
     this.add.image(400, 400, 'sky');
+
+    this.sound.add('sonSaMereLaLol', { loop: true }).play();
 
     // Create ground platforms
     this.platforms = this.physics.add.staticGroup();
@@ -53,7 +127,7 @@ class Game extends Phaser.Scene {
     // this.platforms.create(750, 220, 'ground');
 
     // Create Player
-    this.player = this.physics.add.sprite(100, 450, 'dude');
+    this.player = this.physics.add.sprite(800 - 64, 800 - 64, 'dude');
     this.player.body.setGravityY(0);
     this.player.body.setGravityX(0);
     // this.player.setBounce(0.001);
@@ -155,94 +229,12 @@ class Game extends Phaser.Scene {
       x -= turn * 3;
       this.putMapSquare({ from: x, to: x }, { from: y - turn * 3, to: y });
       y -= turn * 3;
-      // y += turn * 3;
-      // turn += 1;
-      // this.putMapSquare({ from: x, to: x + 3 }, { from: y, to: y });
-      // x += turn * -3;
-      // this.putMapSquare({ from: x, to: x }, { from: y, to: y + 3 });
-      // y += turn * -3;
     }
-
-    // this.createMapLineHorizontal(tuileSize * 0, tuileSize * 1, tuileSize * 24);
-    // this.createMapLineHorizontal(tuileSize * 3, tuileSize * 4, tuileSize * 17);
-    // this.createMapLineHorizontal(tuileSize * 6, tuileSize * 6, tuileSize * 12);
-    // this.createMapLineHorizontal(tuileSize * 12, tuileSize * 3, tuileSize * 16);
-    // this.createMapLineHorizontal(tuileSize * 15, tuileSize * 1, tuileSize * 21);
-    // this.createMapLineHorizontal(tuileSize * 18, tuileSize * 0, tuileSize * 25);
-
-    // this.createMapLineVertical(tuileSize * 1, tuileSize * 0, tuileSize * 16);
-    // this.createMapLineVertical(tuileSize * 4, tuileSize * 3, tuileSize * 9);
-    // this.createMapLineVertical(tuileSize * 7, tuileSize * 7, tuileSize * 4);
-    // this.createMapLineVertical(tuileSize * 19, tuileSize * 6, tuileSize * 6);
-    // this.createMapLineVertical(tuileSize * 22, tuileSize * 3, tuileSize * 12);
-    // this.createMapLineVertical(tuileSize * 25, tuileSize * 0, tuileSize * 18);
-
-    // let row = 1;
-    // const col = 1;
-    // do {
-    //   console.log('max');
-    //   console.log(max);
-    //   console.log(row);
-    //   // this.createMapLineVertical(tuileSize * (1 + row), tuileSize * row, (max - row) * tuileSize);
-    //   // this.createMapLineVertical(
-    //   //   tuileSize * (max - row),
-    //   //   tuileSize * row,
-    //   //   (max - row * z * 2) * tuileSize,
-    //   // );
-    //   this.createMapLineVertical(
-    //     max * tuileSize,
-    //     tuileSize * (row - 1),
-    //     (max - (row - 1) * 2) * tuileSize,
-    //   );
-    //   this.createMapLineVertical(
-    //     row * tuileSize,
-    //     tuileSize * (row - 1),
-    //     (max - row * 2) * tuileSize,
-    //   );
-    //   this.createMapLineHorizontal(
-    //     (max - row) * tuileSize,
-    //     tuileSize * (row - 1),
-    //     (max - row * 2 + 1) * tuileSize,
-    //   );
-    //   this.createMapLineHorizontal(
-    //     (row - 1) * tuileSize,
-    //     tuileSize * (row - 1 + 3),
-    //     (max - row * 2) * tuileSize,
-    //   );
-    //   row += 3;
-    //   //   this.createMapLineHorizontal(0, 0, screen.WIDTH);
-    //   // this.createMapLineHorizontal(32 + x * 32, x * 32, screen.WIDTH);
-    //   // this.createMapLineVertical(screen.WIDTH, 0, screen.HEIGHT);
-    //   // this.createMapLineVertical(32 + y * 32, y * 32, screen.HEIGHT - x * 32);
-    //   z += 1;
-    // } while (z < 5);
-
-    // this.createMapLineHorizontal(screen.HEIGHT - 3 * 32, 0, screen.WIDTH - 3 * 32);
-    // let i = 0;
-    // do {
-    //   this.platforms.create(16 + 32 * i, screen.HEIGHT - 16, 'ground2');
-    //   i += 1;
-    // } while (screen.WIDTH > i * 32 + 16);
-    // .scale.setTo(2, 1);
   }
 
-  // createMapLineHorizontal(y, xFrom, xTo) {
-  //   let i = 0;
-  //   do {
-  //     this.platforms.create(xFrom + 16 + 32 * i, y + 16, 'ground2');
-  //     i += 1;
-  //   } while (xTo > i * 32 + 16);
-  // }
-
-  // createMapLineVertical(x, yFrom, yTo) {
-  //   let i = 0;
-  //   do {
-  //     this.platforms.create(x - 16, yFrom + 16 + 32 * i, 'ground2');
-  //     i += 1;
-  //   } while (yTo > i * 32 + 16);
-  // }
-
   putMapCase(x, y) {
+    x = Math.trunc(x);
+    y = Math.trunc(y);
     const tuileSize = 32;
     const max = screen.WIDTH / tuileSize;
     if (x > max || y > max) {
@@ -256,7 +248,6 @@ class Game extends Phaser.Scene {
   }
 
   putMapSquare(width, height) {
-    console.log('x, y', width, height);
     for (let x = width.from; x <= width.to; x += 1) {
       for (let y = height.from; y <= height.to; y += 1) {
         this.putMapCase(x, y);
