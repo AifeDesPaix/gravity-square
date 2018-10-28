@@ -32,7 +32,7 @@ class Game extends Phaser.Scene {
     this.addLoading();
     this.load.image('sky', sky);
     this.load.image('ground', ground);
-    this.load.audio('sonSaMereLaLol', [aOgg, aMp3]);
+    // this.load.audio('sonSaMereLaLol', [aOgg, aMp3]);
     this.load.image('ground2', ground2);
     this.load.spritesheet('dude', dude, { frameWidth: 32, frameHeight: 29 });
 
@@ -47,64 +47,64 @@ class Game extends Phaser.Scene {
   }
 
   addLoading() {
-    let progressBar = this.add.graphics();
-    let progressBox = this.add.graphics();
+    const progressBar = this.add.graphics();
+    const progressBox = this.add.graphics();
     progressBox.fillStyle(0x222222, 0.8);
     progressBox.fillRect(240, 270, 320, 50);
-    
-    let width = this.cameras.main.width;
-    let height = this.cameras.main.height; 
-    let loadingText = this.make.text({
-        x: width / 2,
-        y: height / 2 - 50,
-        text: 'Loading...',
-        style: {
-            font: '20px monospace',
-            fill: '#ffffff'
-        }
+
+    const width = this.cameras.main.width;
+    const height = this.cameras.main.height;
+    const loadingText = this.make.text({
+      x: width / 2,
+      y: height / 2 - 50,
+      text: 'Loading...',
+      style: {
+        font: '20px monospace',
+        fill: '#ffffff',
+      },
     });
     loadingText.setOrigin(0.5, 0.5);
-    
-    let percentText = this.make.text({
-        x: width / 2,
-        y: height / 2 - 5,
-        text: '0%',
-        style: {
-            font: '18px monospace',
-            fill: '#ffffff'
-        }
+
+    const percentText = this.make.text({
+      x: width / 2,
+      y: height / 2 - 5,
+      text: '0%',
+      style: {
+        font: '18px monospace',
+        fill: '#ffffff',
+      },
     });
     percentText.setOrigin(0.5, 0.5);
-    
-    let assetText = this.make.text({
-        x: width / 2,
-        y: height / 2 + 50,
-        text: '',
-        style: {
-            font: '18px monospace',
-            fill: '#ffffff'
-        }
+
+    const assetText = this.make.text({
+      x: width / 2,
+      y: height / 2 + 50,
+      text: '',
+      style: {
+        font: '18px monospace',
+        fill: '#ffffff',
+      },
     });
 
     assetText.setOrigin(0.5, 0.5);
-    
+
     this.load.on('progress', (value) => {
-        percentText.setText(parseInt(value * 100) + '%');
-        progressBar.clear();
-        progressBar.fillStyle(0xffffff, 1);
-        progressBar.fillRect(250, 280, 300 * value, 30);
+      percentText.setText(`${parseInt(value * 100)}%`);
+      progressBar.clear();
+      progressBar.fillStyle(0xffffff, 1);
+      progressBar.fillRect(250, 280, 300 * value, 30);
     });
-    
+
     this.load.on('fileprogress', (file) => {
-        assetText.setText('Loading asset: ' + file.key);
+      assetText.setText(`Loading asset: ${file.key}`);
     });
 
     this.load.on('complete', () => {
-        progressBar.destroy();
-        progressBox.destroy();
-        loadingText.destroy();
-        percentText.destroy();
-        assetText.destroy();
+      progressBar.destroy();
+      progressBox.destroy();
+      loadingText.destroy();
+      percentText.destroy();
+      assetText.destroy();
     });
   }
 
@@ -113,7 +113,7 @@ class Game extends Phaser.Scene {
     // this.map = this.add.tilemap('level');
     this.add.image(400, 400, 'sky');
 
-    this.sound.add('sonSaMereLaLol', { loop: true }).play();
+    // this.sound.add('sonSaMereLaLol', { loop: true }).play();
 
     // Create ground platforms
     this.platforms = this.physics.add.staticGroup();
@@ -132,8 +132,8 @@ class Game extends Phaser.Scene {
     this.player.body.setGravityX(0);
     // this.player.setBounce(0.001);
     this.player.setCollideWorldBounds(true);
-    this.player.setVelocityX(0);
-    this.player.setVelocityY(0);
+    this.player.setVelocityX(-400);
+    this.player.body.setAllowGravity(false);
 
     // Create player animation
     this.anims.create({
@@ -175,18 +175,15 @@ class Game extends Phaser.Scene {
     } else if (this.cursors.down.isDown) {
       this.gravityChange(Direction.BOTTOM);
       this.player.anims.play('turn', true);
-    } else {
-      // this.player.setVelocityX(300);
+    } else if (this.cursors.space.isDown) {
+      // console.log('a');
+      // this.player.setVelocityX(-100);
       // this.player.anims.play('turn');
     }
-
-    // if (this.cursors.up.isDown && this.player.body.touching.down) {
-    // this.player.setVelocityY(-450);
-    // }
   }
 
   gravityChange(direction) {
-    const patate = 500;
+    const patate = 400;
     const conf = { gY: 0, gX: 0 };
     switch (direction) {
       case Direction.TOP:
@@ -204,11 +201,8 @@ class Game extends Phaser.Scene {
       default:
         break;
     }
-    // this.player.anims.play('turn', true);
-    this.player.body.setGravityY(conf.gY);
-    this.player.body.setGravityX(conf.gX);
-    this.player.setAccelerationX(conf.gX);
-    this.player.setAccelerationY(conf.gY);
+    this.player.body.setVelocityX(conf.gX);
+    this.player.body.setVelocityY(conf.gY);
   }
 
   createMap() {
