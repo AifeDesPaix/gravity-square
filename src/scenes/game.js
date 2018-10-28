@@ -32,7 +32,7 @@ class Game extends Phaser.Scene {
     this.addLoading();
     this.load.image('sky', sky);
     this.load.image('ground', ground);
-    // this.load.audio('sonSaMereLaLol', [aOgg, aMp3]);
+    this.load.audio('sonSaMereLaLol', [aOgg, aMp3]);
     this.load.image('ground2', ground2);
     this.load.spritesheet('dude', dude, { frameWidth: 32, frameHeight: 29 });
 
@@ -113,7 +113,7 @@ class Game extends Phaser.Scene {
     // this.map = this.add.tilemap('level');
     this.add.image(400, 400, 'sky');
 
-    // this.sound.add('sonSaMereLaLol', { loop: true }).play();
+    this.sound.add('sonSaMereLaLol', { loop: true }).play();
 
     // Create ground platforms
     this.platforms = this.physics.add.staticGroup();
