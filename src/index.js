@@ -10,10 +10,10 @@ const config = {
   physics: {
     default: 'arcade',
     arcade: {
-      gravity: {
-        y: 200,
-      },
-      debug: true,
+      // gravity: {
+      //   y: 200,
+      // },
+      debug: true, // todo ranger dans manager debug node ENV
     },
   },
   scene: [GameScene],
