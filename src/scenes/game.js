@@ -18,7 +18,7 @@ class Game extends Phaser.Scene {
 
   initManagers() {
     this.managers = {
-      sound: new SoundManager(this),
+      // sound: new SoundManager(this),
       loading: new LoadingManager(this),
       map: new MapManager(this),
       character: new CharacterManager(this),

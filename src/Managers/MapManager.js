@@ -1,4 +1,3 @@
-
 import screen from '../config/constants';
 import _Manager from './_Manager';
 import DefaultBackgroudObject from '../Objects/Backgrounds/Default';
@@ -7,6 +6,7 @@ import DefaultPlatformObject from '../Objects/Platforms/Default';
 export default class MapManager extends _Manager {
   constructor(scene) {
     super(scene);
+    this.objets = [];
     this.loadObjects();
   }
 
@@ -24,6 +24,15 @@ export default class MapManager extends _Manager {
     this.colidable = this.scene.physics.add.staticGroup();
     this.scene.add.image(400, 400, this.background.name);
     this.createMap();
+    console.log(this.objets[3]);
+  }
+
+  update() {
+    // this.gravityChange(Direction.LEFT);
+    // return;
+    this.objets[0].x = 150;
+    this.objets[0].y = 750;
+
   }
 
   createMap() {
@@ -86,10 +95,10 @@ export default class MapManager extends _Manager {
     if (xT > max || yT > max) {
       throw Error('Position en dehors');
     }
-    this.colidable.create(
+    this.objets.push(this.colidable.create(
       (tuileSize / 2) + (tuileSize * xT),
       (tuileSize / 2) + (tuileSize * (max - 1 - yT)),
       this.platform.name,
-    );
+    ));
   }
 }
