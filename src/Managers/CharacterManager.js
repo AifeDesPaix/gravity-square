@@ -94,23 +94,23 @@ export default class CharacterManager extends _Manager {
   }
 
   gravityChange(direction) {
-    const patate = 400;
+    const gravity = 444;
     const conf = {
       gY: 0,
       gX: 0,
     };
     switch (direction) {
       case Direction.TOP:
-        conf.gY = -1 * patate;
+        conf.gY = -1 * gravity;
         break;
       case Direction.BOTTOM:
-        conf.gY = patate;
+        conf.gY = gravity;
         break;
       case Direction.LEFT:
-        conf.gX = -1 * patate;
+        conf.gX = -1 * gravity;
         break;
       case Direction.RIGHT:
-        conf.gX = patate;
+        conf.gX = gravity;
         break;
       default:
         break;
