@@ -10,4 +10,4 @@ ENV PORT=1234
 
 EXPOSE ${PORT}
 
-ENTRYPOINT [ "npm", "run", "start" ]
+ENTRYPOINT [ "npm", "run", "prod" ]
