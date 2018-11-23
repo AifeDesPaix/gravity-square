@@ -1,5 +1,5 @@
 import _PhaserObject from '../_PhaserObject';
-import sky from '../../assets/sky.png';
+import sky from '../../assets/Sky.jpg';
 
 export default class DefaultBackgroudObject extends _PhaserObject {
   constructor() {

@@ -39,6 +39,8 @@ export default class CharacterManager extends _Manager {
     this.player.setCollideWorldBounds(true);
     this.player.setVelocityX(-400);
     this.player.body.setAllowGravity(false);
+    this.scene.cameras.main.startFollow(this.player);
+    this.scene.cameras.main.zoom = 1.5;
   }
 
   animations() {
@@ -80,6 +82,7 @@ export default class CharacterManager extends _Manager {
     } else if (this.scene.cursors.right.isDown) {
       this.gravityChange(Direction.RIGHT);
       this.player.anims.play('right', true);
+      this.player.setVelocityX(500);
     } else if (this.scene.cursors.up.isDown) {
       this.gravityChange(Direction.TOP);
       this.player.anims.play('turn', true);
@@ -119,3 +122,4 @@ export default class CharacterManager extends _Manager {
     this.player.body.setVelocityY(conf.gY);
   }
 }
+
