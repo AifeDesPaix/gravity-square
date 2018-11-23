@@ -1,11 +1,8 @@
 import Phaser from 'phaser';
 
-import CharacterManager from '../Managers/CharacterManager';
-import MapManager from '../Managers/MapManager';
-import LoadingManager from '../Managers/LoadingManager';
-import SoundManager from '../Managers/SoundManager';
+import MenuManager from '../Managers/MenuManager';
 
-class Game extends Phaser.Scene {
+class Menu extends Phaser.Scene {
   constructor() {
     super();
     this.managers = {};
@@ -18,10 +15,8 @@ class Game extends Phaser.Scene {
 
   initManagers() {
     this.managers = {
-      sound: new SoundManager(this),
-      loading: new LoadingManager(this),
-      map: new MapManager(this),
-      character: new CharacterManager(this),
+      // sound: new SoundManager(this),
+      map: new MenuManager(this),
     };
   }
 
@@ -37,8 +32,6 @@ class Game extends Phaser.Scene {
       .forEach((manager) => {
         manager.create();
       });
-    // Add physic player + map
-    this.physics.add.collider(this.managers.character.player, this.managers.map.colidable);
   }
 
   update() {
@@ -50,4 +43,4 @@ class Game extends Phaser.Scene {
   }
 }
 
-export default Game;
+export default Menu;

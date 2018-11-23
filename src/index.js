@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 
 import constants from './config/constants';
-import GameScene from './scenes/game';
+import MenuScene from './scenes/menu';
 
 const config = {
   type: Phaser.AUTO,
@@ -10,20 +10,21 @@ const config = {
   physics: {
     default: 'arcade',
     arcade: {
-      gravity: {
-        y: 200,
-      },
-      debug: true,
+      // gravity: {
+      //   y: 200,
+      // },
+      debug: true, // todo ranger dans manager debug node ENV
     },
   },
-  scene: [GameScene],
+  scene: [MenuScene],
 };
 
 // eslint-disable-next-line no-new
 new Phaser.Game(config);
 
 if (module.hot) {
-  module.hot.accept(() => {});
+  module.hot.accept(() => {
+  });
 
   module.hot.dispose(() => {
     window.location.reload();
