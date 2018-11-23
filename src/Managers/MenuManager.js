@@ -1,12 +1,12 @@
 import _Manager from './_Manager';
-import StartButton from '../assets/btn_start.png';
+import StartButton from '../assets/btn_start_2.png';
 import GameScene from '../scenes/game';
 
 export default class MenuManager extends _Manager {
   preload() {
     this.scene.load.spritesheet('btn_start', StartButton, {
-      frameWidth: 420,
-      frameHeight: 230,
+      frameWidth: 84,
+      frameHeight: 46,
     });
 
     this.width = this.scene.cameras.main.width;
@@ -19,7 +19,8 @@ export default class MenuManager extends _Manager {
 
   create() {
     this.startBtn = this.scene.physics.add.sprite(this.width / 2, this.height / 2, 'btn_start').setInteractive();
-    this.startBtn.setScale(0.2, 0.2);
+    // this.startBtn.setScale(0.2, 0.2);
+
     this.startBtn.on('pointerdown', this.actionOnClick);
   }
 
