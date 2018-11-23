@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 
 import constants from './config/constants';
-import GameScene from './scenes/game';
+import MenuScene from './scenes/menu';
 
 const config = {
   type: Phaser.AUTO,
@@ -16,7 +16,7 @@ const config = {
       debug: true, // todo ranger dans manager debug node ENV
     },
   },
-  scene: [GameScene],
+  scene: [MenuScene],
 };
 
 // eslint-disable-next-line no-new
