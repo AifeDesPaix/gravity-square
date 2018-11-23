@@ -30,8 +30,8 @@ export default class MapManager extends _Manager {
   update() {
     // this.gravityChange(Direction.LEFT);
     // return;
-    this.objets[0].x = 150;
-    this.objets[0].y = 750;
+    // this.objets[0].x = 150;
+    // this.objets[0].y = 750;
 
   }
 
