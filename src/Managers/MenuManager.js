@@ -1,5 +1,6 @@
 import _Manager from './_Manager';
 import StartButton from '../assets/btn_start_2.png';
+import TestButton from '../assets/btn_test.png';
 import GameScene from '../scenes/game';
 import TestScene from '../scenes/test';
 
@@ -11,7 +12,7 @@ export default class MenuManager extends _Manager {
     });
 
     /* Button to open the Test Scene */
-    this.scene.load.spritesheet('btn_test', StartButton, {
+    this.scene.load.spritesheet('btn_test', TestButton, {
       frameWidth: 84,
       frameHeight: 46,
     });
@@ -48,5 +49,6 @@ export default class MenuManager extends _Manager {
   destroy() {
     this.menuBox.destroy();
     this.startBtn.destroy();
+    this.testBtn.destroy();
   }
 }
