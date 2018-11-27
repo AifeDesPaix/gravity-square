@@ -1,6 +1,6 @@
 module.exports = {
   env: { browser: true },
-  extends: "airbnb-base",
+  extends: "standard",
   rules: {
     "linebreak-style": ["error", "windows"],
     "linebreak-style": ["error", "unix"]

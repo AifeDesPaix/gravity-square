@@ -1,46 +1,46 @@
-import Phaser from 'phaser';
+import Phaser from 'phaser'
 
-import MenuManager from '../Managers/MenuManager';
+import MenuManager from '../Managers/MenuManager'
 
 class Menu extends Phaser.Scene {
-  constructor() {
-    super();
-    this.managers = {};
-    this.init();
+  constructor () {
+    super()
+    this.managers = {}
+    this.init()
   }
 
-  init() {
-    this.initManagers();
+  init () {
+    this.initManagers()
   }
 
-  initManagers() {
+  initManagers () {
     this.managers = {
       // sound: new SoundManager(this),
-      map: new MenuManager(this),
-    };
+      map: new MenuManager(this)
+    }
   }
 
-  preload() {
+  preload () {
     Object.values(this.managers)
       .forEach((manager) => {
-        manager.preload();
-      });
+        manager.preload()
+      })
   }
 
-  create() {
+  create () {
     Object.values(this.managers)
       .forEach((manager) => {
-        manager.create();
-      });
+        manager.create()
+      })
   }
 
-  update() {
+  update () {
     Object.values(this.managers)
       .forEach((manager) => {
-        manager.update();
-      });
+        manager.update()
+      })
     // this.debug.inputInfo(32, 32); //todo : debug manager en cas de node ENV DEBUG
   }
 }
 
-export default Menu;
+export default Menu

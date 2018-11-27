@@ -1,53 +1,59 @@
-import Phaser from 'phaser';
+import Phaser from 'phaser'
 
-import CharacterManager from '../Managers/CharacterManager';
-import MapManager from '../Managers/MapManager';
-import LoadingManager from '../Managers/LoadingManager';
-import SoundManager from '../Managers/SoundManager';
+import CharacterManager from '../Managers/CharacterManager'
+import MapManager from '../Managers/MapManager'
+import LoadingManager from '../Managers/LoadingManager'
+import SoundManager from '../Managers/SoundManager'
+import { rotateCamera } from '../service/camera'
 
 class Game extends Phaser.Scene {
-  constructor() {
-    super();
-    this.managers = {};
-    this.init();
+  constructor () {
+    super()
+    this.managers = {}
+    this.init()
   }
 
-  init() {
-    this.initManagers();
+  init () {
+    this.initManagers()
   }
 
-  initManagers() {
+  initManagers () {
     this.managers = {
-      sound: new SoundManager(this),
+    /*  sound: new SoundManager(this),*/
       loading: new LoadingManager(this),
       map: new MapManager(this),
-      character: new CharacterManager(this),
-    };
+      character: new CharacterManager(this)
+    }
   }
 
-  preload() {
+  preload () {
     Object.values(this.managers)
       .forEach((manager) => {
-        manager.preload();
-      });
+        manager.preload()
+      })
   }
 
-  create() {
+  create () {
     Object.values(this.managers)
       .forEach((manager) => {
-        manager.create();
-      });
+        manager.create()
+      })
     // Add physic player + map
-    this.physics.add.collider(this.managers.character.player, this.managers.map.colidable);
+    this.physics.add.collider(this.managers.character.player, this.managers.map.colidable, this.cameraManager, null, this)
   }
 
-  update() {
+  update () {
     Object.values(this.managers)
       .forEach((manager) => {
-        manager.update();
-      });
+        manager.update()
+      })
     // this.debug.inputInfo(32, 32); //todo : debug manager en cas de node ENV DEBUG
+  }
+
+  cameraManager (player) {
+    const initialPosition = this.cameras.main.rotation
+    rotateCamera(this, initialPosition, player)
   }
 }
 
-export default Game;
+export default Game

@@ -1,17 +1,17 @@
 export default class _Manager {
-  constructor(scene) {
+  constructor (scene) {
     if (new.target === _Manager) {
-      throw new TypeError('Cannot construct Abstract instances directly');
+      throw new TypeError('Cannot construct Abstract instances directly')
     }
-    this.scene = scene;
+    this.scene = scene
   }
 
-  preload() {
+  preload () {
   }
 
-  create() {
+  create () {
   }
 
-  update() {
+  update () {
   }
 }
