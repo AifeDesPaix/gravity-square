@@ -1,7 +1,6 @@
 import _Manager from './_Manager';
 import StartButton from '../assets/btn_start_2.png';
 import GameScene from '../scenes/game';
-// import Webservice from '../webservice/webservice';
 
 export default class MenuManager extends _Manager {
   preload() {
@@ -20,22 +19,8 @@ export default class MenuManager extends _Manager {
 
   create() {
     this.startBtn = this.scene.physics.add.sprite(this.width / 2, this.height / 2, 'btn_start').setInteractive();
-
-    this.userBtn = this.scene.physics.add.sprite(this.width / 2, (this.height / 2) + 56, 'btn_start').setInteractive();
-
     this.startBtn.on('pointerdown', this.actionOnClick);
-    // this.userBtn.on('pointerdown', MenuManager.newUser);
   }
-
-  // static newUser() {
-  //   const Userservice = new Webservice('users');
-  //   console.log(Userservice.create({
-  //     first: 'Paul',
-  //     middle: 'Thomas',
-  //     last: 'Anderson',
-  //     born: 2028,
-  //   }));
-  // }
 
   actionOnClick() {
     this.scene.scene.add('Game', GameScene).start('Game');

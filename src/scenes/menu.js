@@ -1,7 +1,5 @@
 import Phaser from 'phaser';
-import firebase from 'firebase/app';
 import 'firebase/firestore';
-import constant from '../config/constants';
 
 import MenuManager from '../Managers/MenuManager';
 
