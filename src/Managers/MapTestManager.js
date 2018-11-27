@@ -7,7 +7,8 @@ import ShurikenObject from '../Objects/Obstacles/Shuriken';
 export default class MapTestManager extends _Manager {
   constructor(scene) {
     super(scene);
-    this.objets = [];
+    this.walls = [];
+    this.obstacles = [];
     this.loadObjects();
   }
 
@@ -19,21 +20,24 @@ export default class MapTestManager extends _Manager {
 
   preload() {
     this.scene.load.image(this.platform.name, this.platform.file);
-    this.scene.load.image(this.background.name, this.background.file);
+    this.scene.load.image(this.background.name, this.background.fileWhite);
+    this.scene.load.image(this.shuriken.name, this.shuriken.file);
   }
 
   create() {
-    this.colidable = this.scene.physics.add.staticGroup();
+    this.colidableWalls = this.scene.physics.add.staticGroup();
+    this.colidableObstacles = this.scene.physics.add.staticGroup();
     this.scene.add.image(400, 400, this.background.name);
     this.createMap();
-    console.log(this.objets[3]);
+    this.putShuriken(0, 0);
+    // console.log(this.walls[3]);
   }
 
   update() {
     // this.gravityChange(Direction.LEFT);
     // return;
-    // this.objets[0].x = 150;
-    // this.objets[0].y = 750;
+    // this.walls[0].x = 150;
+    // this.walls[0].y = 750;
 
   }
 
@@ -81,8 +85,6 @@ export default class MapTestManager extends _Manager {
       });
       y -= turn * 3;
     }
-
-    this.putShuriken(0, 0);
   }
 
   putMapSquare(width, height) {
@@ -100,7 +102,7 @@ export default class MapTestManager extends _Manager {
     if (xT > max || yT > max) {
       throw Error('Position en dehors');
     }
-    this.objets.push(this.colidable.create(
+    this.walls.push(this.colidableWalls.create(
       (tuileSize / 2) + (tuileSize * xT),
       (tuileSize / 2) + (tuileSize * (max - 1 - yT)),
       this.platform.name,
@@ -114,7 +116,7 @@ export default class MapTestManager extends _Manager {
     if (xT > max || yT > max) {
       throw Error('Position en dehors');
     }
-    this.objets.push(this.colidable.create(
+    this.obstacles.push(this.colidableObstacles.create(
       (tuileSize / 2) + (tuileSize * xT),
       (tuileSize / 2) + (tuileSize * (max - 1 - yT)),
       this.shuriken.name,

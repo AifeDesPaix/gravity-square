@@ -38,7 +38,19 @@ class Test extends Phaser.Scene {
         manager.create();
       });
     // Add physic player + map
-    this.physics.add.collider(this.managers.character.player, this.managers.map.colidable);
+    this.physics.add.collider(this.managers.character.player, this.managers.map.colidableWalls);
+    this.physics.add.collider(
+      this.managers.character.player,
+      this.managers.map.colidableObstacles,
+      this.bite,
+      null,
+      this,
+    );
+  }
+
+  bite(player) {
+    console.log('Game Over');
+    player.destroy();
   }
 
   update() {
