@@ -1,9 +1,9 @@
 import Phaser from 'phaser';
 
-import SoundManager from '../Managers/SoundManager';
 import CharacterManager from '../Managers/CharacterManager';
 import MapManager from '../Managers/MapManager';
 import LoadingManager from '../Managers/LoadingManager';
+import SoundManager from '../Managers/SoundManager';
 
 class Game extends Phaser.Scene {
   constructor() {
@@ -18,7 +18,7 @@ class Game extends Phaser.Scene {
 
   initManagers() {
     this.managers = {
-      // sound: new SoundManager(this),
+      sound: new SoundManager(this),
       loading: new LoadingManager(this),
       map: new MapManager(this),
       character: new CharacterManager(this),
@@ -46,7 +46,7 @@ class Game extends Phaser.Scene {
       .forEach((manager) => {
         manager.update();
       });
-    // this.debug.inputInfo(32, 32); todo : debug manager en cas de node ENV DEBUG
+    // this.debug.inputInfo(32, 32); //todo : debug manager en cas de node ENV DEBUG
   }
 }
 
