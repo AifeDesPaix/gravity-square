@@ -10,6 +10,7 @@ class Test extends Phaser.Scene {
     super();
     this.managers = {};
     this.init();
+    this.gameOver = false;
   }
 
   init() {
@@ -37,20 +38,23 @@ class Test extends Phaser.Scene {
       .forEach((manager) => {
         manager.create();
       });
-    // Add physic player + map
+    // Add physic player + walls
     this.physics.add.collider(this.managers.character.player, this.managers.map.colidableWalls);
+
+    // Add physic + obstacles
     this.physics.add.collider(
       this.managers.character.player,
       this.managers.map.colidableObstacles,
-      this.bite,
+      this.bite, // callback collision
       null,
       this,
     );
   }
 
   bite(player) {
-    console.log('Game Over');
-    player.destroy();
+    player.setTint(0xff0000);
+    this.cameras.main.shake(500);
+    this.gameOver = true;
   }
 
   update() {
