@@ -40,7 +40,7 @@ export default class CharacterManager extends _Manager {
     this.player.setVelocityX(-400);
     this.player.body.setAllowGravity(false);
     this.scene.cameras.main.startFollow(this.player);
-    this.scene.cameras.main.zoom = 1.5;
+    this.scene.cameras.main.zoom = 0;
   }
 
   animations() {
