@@ -1,4 +1,7 @@
 import Phaser from 'phaser';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import constant from '../config/constants';
 
 import MenuManager from '../Managers/MenuManager';
 
@@ -7,6 +10,8 @@ class Menu extends Phaser.Scene {
     super();
     this.managers = {};
     this.init();
+
+    // Disable deprecated features
   }
 
   init() {
