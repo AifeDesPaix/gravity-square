@@ -1,9 +1,9 @@
 import Phaser from 'phaser';
 
 import CharacterManager from '../Managers/CharacterManager';
-// import MapManager from '../Managers/MapManager';
 import LoadingManager from '../Managers/LoadingManager';
 import SoundManager from '../Managers/SoundManager';
+import MapTestManager from '../Managers/MapTestManager';
 
 class Test extends Phaser.Scene {
   constructor() {
@@ -20,7 +20,7 @@ class Test extends Phaser.Scene {
     this.managers = {
       sound: new SoundManager(this),
       loading: new LoadingManager(this),
-      /* map: new MapManager(this), */
+      map: new MapTestManager(this),
       character: new CharacterManager(this),
     };
   }
@@ -38,7 +38,7 @@ class Test extends Phaser.Scene {
         manager.create();
       });
     // Add physic player + map
-    // this.physics.add.collider(this.managers.character.player, this.managers.map.colidable);
+    this.physics.add.collider(this.managers.character.player, this.managers.map.colidable);
   }
 
   update() {
@@ -46,6 +46,7 @@ class Test extends Phaser.Scene {
       .forEach((manager) => {
         manager.update();
       });
+    // this.debug.inputInfo(32, 32); //todo : debug manager en cas de node ENV DEBUG
   }
 }
 
