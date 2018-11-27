@@ -23,11 +23,6 @@ export default class MenuManager extends _Manager {
       .setInteractive();
 
     this.startBtn.on('pointerdown', this.actionOnClick);
-    /**
-     * Todo Tache 0001 - Action au click sur le bouton démarer
-     * L'attribut startBtn doit appeler la métode "actionOnClick"
-     * quand l'évènement 'pointerdown' est appelé
-     * */
   }
 
   actionOnClick() {
