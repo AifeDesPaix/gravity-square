@@ -2,6 +2,7 @@ import screen from '../config/constants';
 import _Manager from './_Manager';
 import DefaultBackgroudObject from '../Objects/Backgrounds/Default';
 import DefaultPlatformObject from '../Objects/Platforms/Default';
+import PauseMenu from '../scenes/pause_menu';
 
 export default class MapManager extends _Manager {
   constructor(scene) {
@@ -21,18 +22,23 @@ export default class MapManager extends _Manager {
   }
 
   create() {
+    this.scene.scene.add('PauseMenu', PauseMenu);
     this.colidable = this.scene.physics.add.staticGroup();
     this.scene.add.image(400, 400, this.background.name);
     this.createMap();
-    console.log(this.objets[3]);
-  }
 
-  update() {
-    // this.gravityChange(Direction.LEFT);
-    // return;
-    // this.objets[0].x = 150;
-    // this.objets[0].y = 750;
-
+    this.scene.make.text({
+      x: 0,
+      y: 35,
+      text: 'PAUSE',
+      style: {
+        font: '20px roboto',
+        fill: '#fafafa',
+      },
+    }).setInteractive().on('pointerdown', () => {
+      this.scene.scene.pause();
+      this.scene.scene.launch('PauseMenu');
+    });
   }
 
   createMap() {
