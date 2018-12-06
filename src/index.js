@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import 'babel-polyfill';
 
 import constants from './config/constants';
 import MenuScene from './scenes/menu';

@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import 'firebase/firestore';
 
 import MenuManager from '../Managers/MenuManager';
 
@@ -7,6 +8,8 @@ class Menu extends Phaser.Scene {
     super();
     this.managers = {};
     this.init();
+
+    // Disable deprecated features
   }
 
   init() {
