@@ -8,6 +8,8 @@ class Menu extends Phaser.Scene {
     super();
     this.managers = {};
     this.init();
+
+    // Disable deprecated features
   }
 
   init() {
