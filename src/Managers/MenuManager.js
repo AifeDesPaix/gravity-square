@@ -18,7 +18,9 @@ export default class MenuManager extends _Manager {
   }
 
   create() {
-    this.startBtn = this.scene.physics.add.sprite(this.width / 2, this.height / 2, 'btn_start').setInteractive();
+    this.startBtn = this.scene.physics.add
+      .sprite(this.width / 2, this.height / 2, 'btn_start')
+      .setInteractive();
     this.startBtn.on('pointerdown', this.actionOnClick);
   }
 
