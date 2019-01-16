@@ -1,15 +1,11 @@
 import Phaser from 'phaser';
-import 'firebase/firestore';
+import PauseMenuManager from '../Managers/PauseMenuManager';
 
-import MenuManager from '../Managers/MenuManager';
-
-class Menu extends Phaser.Scene {
+class PauseMenu extends Phaser.Scene {
   constructor() {
     super();
     this.managers = {};
     this.init();
-
-    // Disable deprecated features
   }
 
   init() {
@@ -18,8 +14,7 @@ class Menu extends Phaser.Scene {
 
   initManagers() {
     this.managers = {
-      // sound: new SoundManager(this),
-      map: new MenuManager(this),
+      pauseMenu: new PauseMenuManager(this),
     };
   }
 
@@ -42,8 +37,7 @@ class Menu extends Phaser.Scene {
       .forEach((manager) => {
         manager.update();
       });
-    // this.debug.inputInfo(32, 32); //todo : debug manager en cas de node ENV DEBUG
   }
 }
 
-export default Menu;
+export default PauseMenu;

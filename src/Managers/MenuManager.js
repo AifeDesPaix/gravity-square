@@ -1,10 +1,18 @@
 import _Manager from './_Manager';
 import StartButton from '../assets/btn_start_2.png';
+import TestButton from '../assets/btn_test.png';
 import GameScene from '../scenes/game';
+import TestScene from '../scenes/test';
 
 export default class MenuManager extends _Manager {
   preload() {
     this.scene.load.spritesheet('btn_start', StartButton, {
+      frameWidth: 84,
+      frameHeight: 46,
+    });
+
+    /* Button to open the Test Scene */
+    this.scene.load.spritesheet('btn_test', TestButton, {
       frameWidth: 84,
       frameHeight: 46,
     });
@@ -22,6 +30,10 @@ export default class MenuManager extends _Manager {
       .sprite(this.width / 2, this.height / 2, 'btn_start')
       .setInteractive();
     this.startBtn.on('pointerdown', this.actionOnClick);
+
+    // Add the test scene button
+    this.testBtn = this.scene.physics.add.sprite(this.width / 2, (this.height / 3) * 2, 'btn_test').setInteractive();
+    this.testBtn.on('pointerdown', this.actionTestOnClick);
   }
 
   actionOnClick() {
@@ -29,8 +41,14 @@ export default class MenuManager extends _Manager {
     this.destroy();
   }
 
+  actionTestOnClick() {
+    this.scene.scene.add('Test', TestScene).start('Test');
+    this.destroy();
+  }
+
   destroy() {
     this.menuBox.destroy();
     this.startBtn.destroy();
+    this.testBtn.destroy();
   }
 }
