@@ -3,7 +3,7 @@ import ButtonLeft from '../assets/ControllerInput/flecheGauche.png';
 import ButtonBottom from '../assets/ControllerInput/flecheBas.png';
 import ButtonRight from '../assets/ControllerInput/flecheDroit.png';
 import ButtonTop from '../assets/ControllerInput/flecheHaut.png';
-import GameScene from "../scenes/game";
+import GameScene from '../scenes/game';
 
 export default class ControllerInputManager extends _Manager {
   preload() {
@@ -24,6 +24,7 @@ export default class ControllerInputManager extends _Manager {
       frameHeight: 46,
     });
   }
+
   create() {
     this.leftBtn = this.scene.physics.add.sprite(this.width / 2, this.height / 2, 'btn_left').setInteractive();
     this.rightBtn = this.scene.physics.add.sprite(this.width / 2, this.height / 2, 'btn_bottom').setInteractive();

@@ -122,4 +122,3 @@ export default class CharacterManager extends _Manager {
     this.player.body.setVelocityY(conf.gY);
   }
 }
-
